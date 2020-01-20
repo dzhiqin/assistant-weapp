@@ -7,7 +7,40 @@
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </block>
   </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
+
+  <!-- 日历年月 -->
+  <view class="content">
+    <view class='calendar_title flex_nowrap'>
+      <view class='icon' bindtap='lastMonth'>
+        <image src='/assets/left.png' />
+      </view>
+      <view>{{year}}年{{month}}月</view>
+      <view class='icon' bindtap='nextMonth'>
+        <image src='/assets/right.png' />
+      </view>
+    </view>
+
+    <!-- 日历主体 -->
+    <view class='calendar'>
+      <view class='header'>
+        <view wx:for='{{date}}' wx:key='id' class='{{(index == todayIndex) && isTodayWeek ? "weekMark" : ""}}'>{{item}}
+          <view></view>
+        </view>
+      </view>
+
+      <view class='date-box'>
+        <block wx:for='{{dateArr}}' wx:key='id'>
+          <view class='{{todayStr == item.todayStr ? "nowDay" : ""}} {{ item.isChecked ? "checked" : ""}}'>
+            <view class='date-head' bindtap='onClickDate' data-year='{{year}}' data-month='{{month}}' data-datenum='{{item.dateNum}}'>
+              <view>{{item.dateNum}}</view>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+  
+  <view>
+    <button bindtap="onCheck" class="content-btn">{{btnText}}</button>
   </view>
 </view>
